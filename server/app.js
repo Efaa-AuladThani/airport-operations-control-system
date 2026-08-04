@@ -23,5 +23,22 @@ app.get("/health", (req, res) => {
   });
 });
 
+// Any request beginning with /api/auth, /api/flights, /api/gates, or /api/incidents should be handled by their respective routers
+const authRoutes = require("./routes/auth");
+
+app.use("/api/auth", authRoutes);
+
+const flightsRoutes = require("./routes/flights");
+
+app.use("/api/flights", flightsRoutes);
+
+const gatesRoutes = require("./routes/gates");
+
+app.use("/api/gates", gatesRoutes);
+
+const incidentsRoutes = require("./routes/incidents");
+
+app.use("/api/incidents", incidentsRoutes);
+
 // Export the configured app for use by the server entry file
 module.exports = app;

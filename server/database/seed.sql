@@ -21,13 +21,68 @@ INSERT INTO flights (id, flight_number, airline, aircraft_type, origin, destinat
     (6, 'FZ193', 'flydubai', 'Boeing 737 MAX 8', 'MCT', 'DXB', '2026-07-20 13:45:00', 'boarding', 2);
 
 -- Sample incidents linked to flights
-INSERT INTO incidents (id, flight_id, title, description, severity, status, reported_at) VALUES
-    (1, 1, 'Delayed baggage transfer', 'Baggage transfer from the inbound aircraft is running behind schedule, causing a boarding delay.', 'high', 'investigating', '2026-07-20 08:05:00'),
-    (2, 3, 'Gate equipment issue', 'The jet bridge at Gate B5 is temporarily unavailable, affecting passenger boarding.', 'medium', 'open', '2026-07-20 09:40:00'),
-    (3, 6, 'Fueling delay', 'Fuel delivery to the aircraft has been delayed due to a temporary refueling queue.', 'critical', 'open', '2026-07-20 13:10:00');
+INSERT INTO incidents (
+    flight_id,
+    title,
+    description,
+    severity,
+    status,
+    reported_at
+) VALUES
+    (
+        1,
+        'Delayed baggage transfer',
+        'Baggage transfer from the inbound aircraft is running behind schedule, causing a boarding delay.',
+        'high',
+        'investigating',
+        '2026-07-20 08:05:00'
+    ),
+    (
+        3,
+        'Gate equipment issue',
+        'The jet bridge at Gate B5 is temporarily unavailable, affecting passenger boarding.',
+        'medium',
+        'open',
+        '2026-07-20 09:40:00'
+    ),
+    (
+        6,
+        'Fueling delay',
+        'Fuel delivery to the aircraft has been delayed due to a temporary refueling queue.',
+        'critical',
+        'open',
+        '2026-07-20 13:10:00'
+    );
 
 -- Sample users
-INSERT INTO users (id, full_name, email, role, password_hash) VALUES
-    (1, 'Aisha Al Rashid', 'aisha.rashid@airportops.local', 'admin', 'sha256$placeholder$admin$1'),
-    (2, 'Omar Haddad', 'omar.haddad@airportops.local', 'operations', 'sha256$placeholder$ops$2'),
-    (3, 'Noura Al Balushi', 'noura.balushi@airportops.local', 'security', 'sha256$placeholder$security$3');
+INSERT INTO users (
+    full_name,
+    email,
+    role,
+    password_hash
+)
+VALUES
+(
+    'Aisha Al Rashid',
+    'aisha.rashid@airportops.local',
+    'admin',
+    '$2b$10$X169FTyuMy0GVoMLza8z4ecQEmiG9Y6Wumn5IvwLB2IpR1GX4o9eC'
+),
+(
+    'Omar Haddad',
+    'omar.haddad@airportops.local',
+    'operations',
+    '$2b$10$X169FTyuMy0GVoMLza8z4ecQEmiG9Y6Wumn5IvwLB2IpR1GX4o9eC'
+),
+(
+    'Noura Al Balushi',
+    'noura.balushi@airportops.local',
+    'security',
+    '$2b$10$X169FTyuMy0GVoMLza8z4ecQEmiG9Y6Wumn5IvwLB2IpR1GX4o9eC'
+);
+
+-- Ensure all SERIAL sequences are synchronized
+SELECT setval('users_id_seq', (SELECT MAX(id) FROM users));
+SELECT setval('gates_id_seq', (SELECT MAX(id) FROM gates));
+SELECT setval('flights_id_seq', (SELECT MAX(id) FROM flights));
+SELECT setval('incidents_id_seq', (SELECT MAX(id) FROM incidents));
