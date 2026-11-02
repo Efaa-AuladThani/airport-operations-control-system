@@ -7,6 +7,29 @@ import { getFlights } from "../services/flightService";
 import { getGates } from "../services/gateService";
 import { getIncidents } from "../services/incidentService";
 
+const SETTINGS_STORAGE_KEY = "aocs-dashboard-settings";
+const DEFAULT_SETTINGS = {
+  compactDashboard: false,
+  showRecentIncidents: true
+};
+
+const readSettings = () => {
+  try {
+    const storedSettings = localStorage.getItem(SETTINGS_STORAGE_KEY);
+
+    if (!storedSettings) {
+      return DEFAULT_SETTINGS;
+    }
+
+    return {
+      ...DEFAULT_SETTINGS,
+      ...JSON.parse(storedSettings)
+    };
+  } catch (error) {
+    return DEFAULT_SETTINGS;
+  }
+};
+
 function Dashboard() {
   const [stats, setStats] = useState({
     flightsToday: 0,
@@ -18,6 +41,7 @@ function Dashboard() {
   const [incidents, setIncidents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [settings, setSettings] = useState(readSettings);
 
   useEffect(() => {
     let isMounted = true;
@@ -69,8 +93,20 @@ function Dashboard() {
     };
   }, []);
 
+  useEffect(() => {
+    const handleSettingsChange = () => {
+      setSettings(readSettings());
+    };
+
+    window.addEventListener("aocs-settings-change", handleSettingsChange);
+
+    return () => {
+      window.removeEventListener("aocs-settings-change", handleSettingsChange);
+    };
+  }, []);
+
   return (
-    <section className="dashboard-page">
+    <section className={`dashboard-page ${settings.compactDashboard ? "dashboard-page--compact" : ""}`}>
       <header className="dashboard-page__header">
         <h1 className="dashboard-page__title">Airport Operations Dashboard</h1>
         <p className="dashboard-page__subtitle">
@@ -125,12 +161,14 @@ function Dashboard() {
             <RecentFlightsTable flights={flights} />
           </section>
 
-          <section className="dashboard-page__recent">
-            <header className="dashboard-page__section-header">
-              <h2 className="dashboard-page__section-title">Recent Incidents</h2>
-            </header>
-            <RecentIncidentsTable incidents={incidents} />
-          </section>
+          {settings.showRecentIncidents && (
+            <section className="dashboard-page__recent">
+              <header className="dashboard-page__section-header">
+                <h2 className="dashboard-page__section-title">Recent Incidents</h2>
+              </header>
+              <RecentIncidentsTable incidents={incidents} />
+            </section>
+          )}
         </>
       )}
     </section>

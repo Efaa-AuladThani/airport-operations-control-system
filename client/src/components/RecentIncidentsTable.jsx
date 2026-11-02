@@ -37,10 +37,6 @@ function RecentIncidentsTable({ incidents }) {
 
   return (
     <section className="recent-incidents-table">
-      <header className="recent-incidents-table__header">
-        <h2 className="recent-incidents-table__title">Recent Incidents</h2>
-      </header>
-
       {visibleIncidents.length === 0 ? (
         <div className="recent-incidents-table__empty">
           No recent incidents are on record at this time.

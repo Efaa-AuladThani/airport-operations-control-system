@@ -76,6 +76,18 @@
   gap: var(--spacing-6);
 }
 
+.dashboard-page--compact {
+  gap: var(--spacing-4);
+}
+
+.dashboard-page--compact .dashboard-page__grid {
+  gap: var(--spacing-4);
+}
+
+.dashboard-page--compact .stat-card {
+  padding: var(--spacing-4);
+}
+
 .dashboard-page__header {
   display: flex;
   flex-direction: column;

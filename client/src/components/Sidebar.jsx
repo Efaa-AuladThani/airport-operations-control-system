@@ -1,20 +1,32 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { Plane, Home, PlaneTakeoff, LayoutGrid, AlertTriangle, LogOut, Menu } from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { Home, PlaneTakeoff, LayoutGrid, AlertTriangle, LogOut, Menu } from "lucide-react";
+import aocsIcon from "../assets/ aocs-icon.png";
+import { useAuth } from "../context/AuthContext";
 
-function Sidebar() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+function Sidebar({ isCollapsed, onToggleSidebar }) {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const toggleSidebar = () => {
-    setIsCollapsed((prevState) => !prevState);
+    if (onToggleSidebar) {
+      onToggleSidebar();
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login", { replace: true });
   };
 
   return (
     <aside className={`sidebar ${isCollapsed ? "sidebar--collapsed" : ""}`}>
       <div className="sidebar__top">
-        <div className="sidebar__brand">
-          <Plane className="sidebar__brand-icon" aria-hidden="true" />
-          <span className="sidebar__brand-text">AOCS</span>
+        <div className="sidebar__brand" aria-label="AOCS branding">
+          <img
+            src={aocsIcon}
+            alt="AOCS icon"
+            className={`sidebar__brand-image ${isCollapsed ? "sidebar__brand-image--icon" : ""}`}
+          />
         </div>
 
         <button
@@ -81,7 +93,7 @@ function Sidebar() {
       </nav>
 
       <div className="sidebar__footer">
-        <button type="button" className="sidebar__logout">
+        <button type="button" className="sidebar__logout" onClick={handleLogout}>
           <LogOut className="sidebar__logout-icon" aria-hidden="true" />
           <span className="sidebar__logout-text">Logout</span>
         </button>

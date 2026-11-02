@@ -1,12 +1,18 @@
+import { useState } from "react";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 
 function Layout({ title, children }) {
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
   return (
-    <div className="app-layout">
+    <div className={`app-layout ${isSidebarCollapsed ? "app-layout--collapsed" : ""}`}>
       {/* Primary application sidebar */}
       <aside className="app-layout__sidebar">
-        <Sidebar />
+        <Sidebar
+          isCollapsed={isSidebarCollapsed}
+          onToggleSidebar={() => setIsSidebarCollapsed((previous) => !previous)}
+        />
       </aside>
 
       <div className="app-layout__content">

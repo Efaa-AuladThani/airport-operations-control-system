@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Mail, Lock } from "lucide-react";
 
 import api from "../api/api";
+import aocsIcon from "../assets/ aocs-icon.png";
 import { useAuth } from "../context/AuthContext";
+import "../styles/login.css";
 
 function Login() {
   const navigate = useNavigate();
@@ -51,11 +54,19 @@ function Login() {
   return (
     <main className="login-page">
       <section className="login-card" aria-labelledby="login-title">
+        <div className="login-brand">
+          <img
+            src={aocsIcon}
+            alt="AOCS icon"
+            className="login-brand__image"
+          />
+        </div>
+
         <header className="login-header">
           <h1 id="login-title" className="login-title">
-            Airport Operations Control System
+            Welcome Back
           </h1>
-          <p className="login-subtitle">Sign in to continue</p>
+          <p className="login-subtitle">Sign in to access airport operations.</p>
         </header>
 
         <form className="login-form" onSubmit={handleSubmit}>
@@ -63,32 +74,38 @@ function Login() {
             <label htmlFor="email" className="form-label">
               Email
             </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              className="form-input"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              autoComplete="email"
-            />
+            <div className="form-field">
+              <Mail className="form-field__icon" aria-hidden="true" />
+              <input
+                id="email"
+                name="email"
+                type="email"
+                className="form-input"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                autoComplete="email"
+              />
+            </div>
           </div>
 
           <div className="form-group">
             <label htmlFor="password" className="form-label">
               Password
             </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              className="form-input"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              autoComplete="current-password"
-            />
+            <div className="form-field">
+              <Lock className="form-field__icon" aria-hidden="true" />
+              <input
+                id="password"
+                name="password"
+                type="password"
+                className="form-input"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                autoComplete="current-password"
+              />
+            </div>
           </div>
 
           {error ? <p className="form-error">{error}</p> : null}
@@ -97,6 +114,8 @@ function Login() {
             {isLoading ? "Signing in..." : "Login"}
           </button>
         </form>
+
+        <footer className="login-footer">AOCS · Airport Operations Control System</footer>
       </section>
     </main>
   );

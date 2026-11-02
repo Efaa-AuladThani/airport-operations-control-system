@@ -19,10 +19,6 @@ function RecentFlightsTable({ flights }) {
 
   return (
     <section className="recent-flights-table">
-      <header className="recent-flights-table__header">
-        <h2 className="recent-flights-table__title">Recent Flights</h2>
-      </header>
-
       {visibleFlights.length === 0 ? (
         <div className="recent-flights-table__empty">
           No recent flights are available at the moment.
