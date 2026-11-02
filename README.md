@@ -171,7 +171,6 @@ PORT=5000
 
 The backend uses these variables for database connectivity and JWT signing.
 
-**Important:** Never commit your actual `.env` file or expose database credentials and JWT secrets. If provided, use `.env.example` to document the required variables with placeholder values.
 
 ### 4. Create and Initialize the Database
 
