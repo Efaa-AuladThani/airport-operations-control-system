@@ -1,5 +1,6 @@
 const { Pool } = require("pg");
 
+
 // Read database configuration from environment variables
 const pool = new Pool({
   host: process.env.DB_HOST,

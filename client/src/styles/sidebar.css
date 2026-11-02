@@ -1,0 +1,115 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  width: 260px;
+  padding: var(--spacing-6);
+  background: var(--color-sidebar);
+  color: var(--color-surface);
+  transition: width var(--transition-base);
+}
+
+.sidebar--collapsed {
+  width: 84px;
+  padding-inline: var(--spacing-4);
+}
+
+.sidebar__top,
+.sidebar__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar__top {
+  margin-bottom: var(--spacing-8);
+}
+
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  color: var(--color-surface);
+}
+
+.sidebar__brand-icon,
+.sidebar__toggle-icon,
+.sidebar__link-icon,
+.sidebar__logout-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.sidebar__brand-text,
+.sidebar__link-text,
+.sidebar__logout-text {
+  transition: opacity var(--transition-fast);
+}
+
+.sidebar--collapsed .sidebar__brand-text,
+.sidebar--collapsed .sidebar__link-text,
+.sidebar--collapsed .sidebar__logout-text {
+  opacity: 0;
+  display: none;
+}
+
+.sidebar__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--color-surface);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.sidebar__toggle:hover,
+.sidebar__link:hover,
+.sidebar__logout:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar__nav {
+  flex: 1;
+}
+
+.sidebar__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.sidebar__link,
+.sidebar__logout {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-4);
+  border-radius: var(--radius-md);
+  color: rgba(255, 255, 255, 0.8);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.sidebar__link:hover,
+.sidebar__link--active,
+.sidebar__logout:hover {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+}
+
+.sidebar__link--active {
+  font-weight: 600;
+}
+
+.sidebar__footer {
+  margin-top: var(--spacing-6);
+  padding-top: var(--spacing-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}

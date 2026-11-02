@@ -1,9 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
+const authRoutes = require("./routes/auth");
 
-// Load environment variables from the .env file
-dotenv.config();
 
 // Create the Express app
 const app = express();
@@ -24,7 +22,7 @@ app.get("/health", (req, res) => {
 });
 
 // Any request beginning with /api/auth, /api/flights, /api/gates, or /api/incidents should be handled by their respective routers
-const authRoutes = require("./routes/auth");
+
 
 app.use("/api/auth", authRoutes);
 
@@ -39,6 +37,7 @@ app.use("/api/gates", gatesRoutes);
 const incidentsRoutes = require("./routes/incidents");
 
 app.use("/api/incidents", incidentsRoutes);
+
 
 // Export the configured app for use by the server entry file
 module.exports = app;

@@ -1,0 +1,26 @@
+.app-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  min-height: 100vh;
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+.app-layout__sidebar {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+.app-layout__content {
+  display: grid;
+  grid-template-rows: var(--navbar-height) minmax(0, 1fr);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.app-layout__main {
+  padding: var(--spacing-6);
+  overflow-y: auto;
+  background: var(--color-background);
+}
